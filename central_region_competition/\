@@ -1,0 +1,51 @@
+def cal_all_value(aim , line , check):
+    total = []
+    for i in range(len(aim)):
+        temp = check[aim[i]][::]
+        if line[i] == 'A':
+            for j in range(5):
+                temp[j] = bin(temp[j])[2:].zfill(7)
+            total.append(temp)
+        elif line[i] == 'B':
+            t = []
+            for j in range(5):
+                t.append((bin(temp[j])[2:].zfill(7))[::-1])
+            total.append(t)
+        else:
+            for j in range(5):
+                temp[j] = bin(127^temp[j])[2:].zfill(7)
+            if line[i] == 'C':
+                total.append(temp)
+            else:
+                t = []
+                for j in range(5):
+                    t.append((bin(temp[j])[2:].zfill(7))[::-1])
+                total.append(t)
+    return total
+
+def cal_stage_result(stages):
+    value = 0
+    for i in range(1, 17):
+        value += stages[i] << (16 - i)
+    return value
+
+def main():
+    m = int(input())
+    check = {}
+    for _ in range(m):
+        line = input().split(',')
+        for l in range(len(line)):
+            line[l] = line[l].strip()
+        check[line[0]] = list(map(int , line[1:]))
+    aim = input()
+    line = input()
+    total = cal_all_value(aim , line , check)
+    stages = [0]*16
+    for i in range(8):
+        temp = []
+        for j in range(len(total)):
+            for k in range(5):
+                bit = bin(total[j][k])[2:][i]
+                stages = input_bit(stages , bit)
+        print(cal_stage_result(stages))
+
