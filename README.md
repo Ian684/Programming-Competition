@@ -2,6 +2,8 @@
 
 A personal repository for programming contest practice. The repository currently contains solutions and notes for regional competition-style problems.
 
+See [INDEX.md](INDEX.md) for the current solution list and review checklist.
+
 ## Repository Structure
 
 ```text
